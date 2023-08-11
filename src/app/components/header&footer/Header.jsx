@@ -14,6 +14,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Link from 'next/link';
+import { Badge } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useSelector } from 'react-redux';
 
 const pages = [
     {
@@ -34,6 +37,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const Header = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const addedProducts=useSelector(state=>state.cartProducts.addedProducts)
   
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
@@ -141,7 +145,11 @@ const Header = () => {
             </Link>
             ))}
           </Box>
-
+          <Link href={'/checkout'}>
+          <Badge badgeContent={addedProducts?.length||'0'} color="error" className='mx-6'>
+            <ShoppingCartIcon />
+          </Badge>
+          </Link>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

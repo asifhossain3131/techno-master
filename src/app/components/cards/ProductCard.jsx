@@ -6,9 +6,12 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import { addtocart } from '@/features/productsSlice';
 
 const ProductCard = ({product}) => {
     const{_id,item_name,category,price,description,image,imported_from,features,model_no,brand_name,warranty}=product
+    const dispatch=useDispatch()
     return (
         <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
@@ -29,7 +32,7 @@ const ProductCard = ({product}) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button onClick={()=>dispatch(addtocart({id:_id,name:item_name,price:price,category:category,model:model_no}))} size="small" color="primary">
           Add to cart
         </Button>
          <Link href={`/products/${_id}`}>
