@@ -13,8 +13,22 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import Link from 'next/link';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = [
+    {
+        nav:'Home',
+        path:'/'
+    },
+    {
+        nav:'Products',
+        path:'/products',
+    },
+    {
+        nav:'Dashboard',
+        path:'/dashboard'
+    }
+];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Header = () => {
@@ -36,7 +50,7 @@ const Header = () => {
       setAnchorElUser(null);
     };
     return (
-        <AppBar position="static" className='bg-red-500'>
+        <AppBar position="static" className='bg-[#06AAAA]'>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -55,7 +69,7 @@ const Header = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+          Techno Master
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -87,10 +101,12 @@ const Header = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {pages.map((page,i) => (
+                <Link key={i} href={page.path}>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page.nav}</Typography>
                 </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>
@@ -111,17 +127,18 @@ const Header = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+             Techno Master
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.map((page,i) => (
+            <Link key={i} href={page.path}>
               <Button
-                key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.nav}
               </Button>
+            </Link>
             ))}
           </Box>
 

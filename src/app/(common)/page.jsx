@@ -1,9 +1,10 @@
 import React from 'react';
+import HomeSlider from '../components/home components/HomeSlider';
 
 const WithCommon = () => {
     return (
         <div>
-            dfs
+            <HomeSlider></HomeSlider>
         </div>
     );
 };

@@ -8,7 +8,7 @@ const CommonLayout = ({children}) => {
         <div>
             <Toaster></Toaster>
             <Header></Header>
-            <div>
+            <div className='min-h-[calc(100vh-125px)]'>
                 {children}
             </div>
             <Footer></Footer>
