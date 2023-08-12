@@ -24,7 +24,7 @@ const CheckoutPage = () => {
       const phoneNumber=loggedUser.phoneNumber
       const currentDate=new Date()
       const orderSummary={phoneNumber:phoneNumber,products:addedProducts,orderTime:currentDate}
-      fetch('../../api/confirmOrder',{
+      fetch('/api/confirmOrder',{
         method:'POST',
         headers:{
           'content-type':'application/json'

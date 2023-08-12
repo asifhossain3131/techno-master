@@ -31,7 +31,7 @@ const AddCustomer = () => {
       const onSubmit = (data) => {
         const {name,phone,email,address}=data
         const user={name,phone,email,address,gender}
-        fetch('../../api/postUser',{
+        fetch('/api/postUser',{
          method:'POST',
          headers:{
             'content-type':'application/json'
