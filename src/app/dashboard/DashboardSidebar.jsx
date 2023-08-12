@@ -26,7 +26,7 @@ const adminInfos=[
     {
       img:'https://cdn-icons-png.flaticon.com/128/4059/4059951.png',
       title:'Product list',
-      path:''
+      path:'/dashboard/productsList'
     }
   ]
 

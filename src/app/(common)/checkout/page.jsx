@@ -53,6 +53,7 @@ const CheckoutPage = () => {
                     ))}
                   </TableBody>
                 </Table>
+                
               </TableContainer>
                 :
                 <p className="text-center text-red-700 text-lg">You have not added products yet</p>
