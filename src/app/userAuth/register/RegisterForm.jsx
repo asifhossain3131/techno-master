@@ -1,8 +1,28 @@
 'use client'
 
 import { Button, Checkbox, Divider, TextField } from '@mui/material';
+import Link from 'next/link';
+import { useForm } from "react-hook-form"
+import { useRouter } from 'next/navigation'
+import { toast } from 'react-hot-toast';
+
 
 const RegisterForm = () => {
+  const router=useRouter()
+  const {
+    register,
+    handleSubmit,
+ reset
+  } = useForm()
+
+  const onSubmit = (data) =>{
+    const{phoneNumber,password}=data
+    const userInformation={phoneNumber:phoneNumber,password:password}
+    localStorage.setItem('userInformation',JSON.stringify(userInformation))
+    reset()
+    router.push('/userAuth/login')
+    toast.success('registration successful. Login now!')
+  }
     return (
         <div className='w-9/12 mx-auto'>
         <h2 className="font-bold text-2xl">Welcome!</h2>
@@ -24,18 +44,19 @@ const RegisterForm = () => {
     </Button>
   </div>
   <Divider className="my-2 text-gray-500">or</Divider>
-  <form className="space-y-1">
+  <form onSubmit={handleSubmit(onSubmit)} className="space-y-1">
     <div className="space-y-2">
       <label htmlFor="" className="font-semibold">
       Name
       </label>
       <TextField
-        type='tel'
+        type='text'
         size="small"
         id="outlined-basic"
         label="Your Name"
         variant="outlined"
         className="w-full"
+        {...register("name", { required: true })}
       />
     </div>
     <div className="space-y-2">
@@ -49,6 +70,7 @@ const RegisterForm = () => {
         label="Your Phone Number"
         variant="outlined"
         className="w-full"
+        {...register("phoneNumber", { required: true })}
       />
     </div>
     <div className="space-y-2">
@@ -58,10 +80,12 @@ const RegisterForm = () => {
         </label>
       </div>
       <TextField
+      type='password'
         size="small"
         id="outlined-basic"
         variant="outlined"
         className="w-full"
+        {...register("password", { required: true })}
       />
     </div>
     <div className="flex items-center">
@@ -71,13 +95,15 @@ const RegisterForm = () => {
         <span className="text-teal-700">Terms and privacy</span>
       </p>
     </div>
-    <Button variant="contained" className="w-full bg-teal-500 my-3">
+    <Button type='submit' variant="contained" className="w-full bg-teal-500 my-3">
       Register
     </Button>
   </form>
   <div>
     <p className="font-semibold mt-3">
-      Already have an account?<span className="text-teal-700 ms-2">SignIn</span>
+      Already have an account?<span className="text-teal-700 ms-2"><Link href={'/userAuth/login'}>
+      SignIn
+      </Link></span>
     </p>
   </div>
   </div>

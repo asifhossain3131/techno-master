@@ -1,8 +1,30 @@
 'use client'
 
 import { Button, Checkbox, Divider, TextField } from '@mui/material';
+import Link from 'next/link';
+import { useForm } from "react-hook-form"
+import { useRouter } from 'next/navigation'
+import { toast } from 'react-hot-toast';
 
 const LoginForm = () => {
+  const router=useRouter()
+  const {
+    register,
+    handleSubmit,
+ reset
+  } = useForm()
+
+  const onSubmit = (data) =>{
+    const{phoneNumber,password}=data
+    const loggedUser=JSON.parse(localStorage.getItem('userInformation'))
+    if(phoneNumber===loggedUser.phoneNumber && password===loggedUser.password){
+      router.push('/')
+      toast.success('Login succeesful')
+    }
+    else{
+      toast.error('Check your credentials')
+    }
+  }
     return (
         <div className='w-9/12 mx-auto'>
               <h2 className="font-bold text-2xl">Welcome Back!</h2>
@@ -24,7 +46,7 @@ const LoginForm = () => {
           </Button>
         </div>
         <Divider className="my-2 text-gray-500">or</Divider>
-        <form className="space-y-1">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-1">
           <div className="space-y-2">
             <label htmlFor="" className="font-semibold">
              Phone Number
@@ -36,6 +58,7 @@ const LoginForm = () => {
               label="Your Phone Number"
               variant="outlined"
               className="w-full"
+              {...register("phoneNumber", { required: true })}
             />
           </div>
           <div className="space-y-2">
@@ -48,10 +71,12 @@ const LoginForm = () => {
               </label>
             </div>
             <TextField
+            type='password'
               size="small"
               id="outlined-basic"
               variant="outlined"
               className="w-full"
+              {...register("password", { required: true })}
             />
           </div>
           <div className="flex items-center">
@@ -61,13 +86,15 @@ const LoginForm = () => {
               <span className="text-teal-700">Terms and privacy</span>
             </p>
           </div>
-          <Button variant="contained" className="w-full bg-teal-500 my-3">
+          <Button type='submit' variant="contained" className="w-full bg-teal-500 my-3">
             login
           </Button>
         </form>
         <div>
           <p className="font-semibold mt-3">
-            Already have an account?<span className="text-teal-700 ms-2">SignIn</span>
+            Already have an account?<span className="text-teal-700 ms-2"><Link href={'/userAuth/register'} >
+            SignIn
+            </Link></span>
           </p>
         </div>
         </div>

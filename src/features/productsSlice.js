@@ -19,9 +19,12 @@ const productsSlice=createSlice({
         removeItem:(state,action)=>{
             state.addedProducts=state.addedProducts.filter(product=>product.id!==action.payload)
             toast.success('Product removed Successfully')
+        },
+        confirmedOrder:(state)=>{
+          state.addedProducts=[]
         }
     }
 })
 
-export const{addtocart,removeItem}=productsSlice.actions
+export const{addtocart,removeItem,confirmedOrder}=productsSlice.actions
 export default productsSlice.reducer

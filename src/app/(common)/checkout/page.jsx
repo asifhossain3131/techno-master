@@ -8,21 +8,42 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import Button from '@mui/material/Button';
 
 const rows = ['Product','Model no','Category','Price','Delete'];
 
 import { useDispatch, useSelector } from "react-redux";
-import { removeItem } from '@/features/productsSlice';
+import { confirmedOrder, removeItem } from '@/features/productsSlice';
+import { toast } from 'react-hot-toast';
 
 const CheckoutPage = () => {
     const addedProducts=useSelector(state=>state?.cartProducts?.addedProducts)
     const dispatch=useDispatch()
+    const handleConfirmOrder=()=>{
+      const loggedUser=JSON.parse(localStorage.getItem('userInformation'))
+      const phoneNumber=loggedUser.phoneNumber
+      const orderSummary={phoneNumber:phoneNumber,products:addedProducts}
+      fetch('../../api/confirmOrder',{
+        method:'POST',
+        headers:{
+          'content-type':'application/json'
+        },
+        body:JSON.stringify(orderSummary)
+      })
+      .then(res=>res.json())
+      .then(data=>{
+        dispatch(confirmedOrder())
+        toast.success('Order placed successfully')
+      })
+    }
     return (
         <div>
            <h1 className="text-2xl text-center mt-4 mb-8 font-semibold">Cart products: {addedProducts?.length}</h1>
            <div>
             {
-                addedProducts?.length>0? <TableContainer component={Paper} className='w-10/12 mx-auto'>
+                addedProducts?.length>0? 
+                <>
+                <TableContainer component={Paper} className='w-10/12 mx-auto'>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
                     <TableRow>
@@ -53,8 +74,11 @@ const CheckoutPage = () => {
                     ))}
                   </TableBody>
                 </Table>
-                
               </TableContainer>
+                <div className='text-center w-1/2 mx-auto'>
+                <Button onClick={handleConfirmOrder} variant="contained" className='bg-[#06AAAA] mt-4'>Confirm Cart</Button>
+                </div>
+                </>
                 :
                 <p className="text-center text-red-700 text-lg">You have not added products yet</p>
             }
