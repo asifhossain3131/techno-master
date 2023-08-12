@@ -17,6 +17,7 @@ import Link from 'next/link';
 import { Badge } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 
 const pages = [
     {
@@ -35,6 +36,7 @@ const pages = [
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Header = () => {
+  const  router=useRouter()
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const addedProducts=useSelector(state=>state.cartProducts.addedProducts)
@@ -53,6 +55,13 @@ const Header = () => {
     const handleCloseUserMenu = () => {
       setAnchorElUser(null);
     };
+
+    const handleSettingFunctionality=(setting)=>{
+      if(setting==='Logout'){
+        localStorage.removeItem('userInformation')
+        router.push('/userAuth/login')
+      }
+    }
     return (
         <AppBar position="static" className='bg-[#06AAAA]'>
       <Container maxWidth="xl">
@@ -174,7 +183,7 @@ const Header = () => {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                 <button onClick={()=>handleSettingFunctionality(setting)}><Typography textAlign="center">{setting}</Typography></button>
                 </MenuItem>
               ))}
             </Menu>

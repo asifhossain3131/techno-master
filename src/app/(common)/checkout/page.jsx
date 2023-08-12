@@ -22,7 +22,8 @@ const CheckoutPage = () => {
     const handleConfirmOrder=()=>{
       const loggedUser=JSON.parse(localStorage.getItem('userInformation'))
       const phoneNumber=loggedUser.phoneNumber
-      const orderSummary={phoneNumber:phoneNumber,products:addedProducts}
+      const currentDate=new Date()
+      const orderSummary={phoneNumber:phoneNumber,products:addedProducts,orderTime:currentDate}
       fetch('../../api/confirmOrder',{
         method:'POST',
         headers:{

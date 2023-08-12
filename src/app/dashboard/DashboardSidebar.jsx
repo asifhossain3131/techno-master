@@ -11,7 +11,7 @@ const adminInfos=[
     {
       img:'https://cdn-icons-png.flaticon.com/128/1828/1828765.png',
       title:'Dashboard',
-      path:'/dashboard/advertiser/Home'
+      path:'/dashboard'
     },
     {
       img:'https://cdn-icons-png.flaticon.com/128/6012/6012823.png',
@@ -21,7 +21,7 @@ const adminInfos=[
     {
       img:'https://cdn-icons-png.flaticon.com/128/3624/3624080.png',
       title:'Order list',
-      path:''
+      path:'/dashboard/ordersList'
     },
     {
       img:'https://cdn-icons-png.flaticon.com/128/4059/4059951.png',

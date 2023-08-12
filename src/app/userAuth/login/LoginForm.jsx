@@ -17,7 +17,7 @@ const LoginForm = () => {
   const onSubmit = (data) =>{
     const{phoneNumber,password}=data
     const loggedUser=JSON.parse(localStorage.getItem('userInformation'))
-    if(phoneNumber===loggedUser.phoneNumber && password===loggedUser.password){
+    if(phoneNumber===loggedUser?.phoneNumber && password===loggedUser?.password){
       router.push('/')
       toast.success('Login succeesful')
     }
