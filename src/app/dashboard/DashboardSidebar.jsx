@@ -16,7 +16,7 @@ const adminInfos=[
     {
       img:'https://cdn-icons-png.flaticon.com/128/6012/6012823.png',
       title:'Customers list',
-      path:''
+      path:'/dashboard/customerList'
     },
     {
       img:'https://cdn-icons-png.flaticon.com/128/3624/3624080.png',
